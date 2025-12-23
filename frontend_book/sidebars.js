@@ -14,6 +14,15 @@ const sidebars = {
         'module1/chapter3-robot-structure',
       ],
     },
+    {
+      type: 'category',
+      label: 'Module 2: The Digital Twin (Gazebo & Unity)',
+      items: [
+        'module2/chapter1-digital-twins',
+        'module2/chapter2-gazebo-physics',
+        'module2/chapter3-unity-integration',
+      ],
+    },
   ],
 };
 
