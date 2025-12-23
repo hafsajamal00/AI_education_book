@@ -1,7 +1,7 @@
 ---
-title: Chapter 1 - ROS 2 Fundamentals
+title: Introduction to ROS 2 for Humanoid Robotics
 sidebar_label: Chapter 1 - ROS 2 Fundamentals
-description: "Understanding the fundamentals of ROS 2 and its importance for Physical AI"
+description: "Understanding the fundamentals of ROS 2 and its importance for Physical AI in humanoid robotics"
 ---
 
 # Chapter 1: ROS 2 Fundamentals
