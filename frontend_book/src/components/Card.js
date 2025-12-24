@@ -16,15 +16,13 @@ import styles from './Card.module.css';
  */
 function Card({ title, description, to, icon, className, style }) {
   return (
-    <div className={clsx(styles.card, className)} style={style}>
-      <Link to={to} className={styles.cardLink}>
-        <div className={styles.cardContent}>
-          {icon && <div className={styles.cardIcon}>{icon}</div>}
-          <h3 className={styles.cardTitle}>{title}</h3>
-          <p className={styles.cardDescription}>{description}</p>
-        </div>
-      </Link>
-    </div>
+    <Link to={to} className={clsx(styles.card, className)} style={style}>
+      <div className={styles.cardContent}>
+        {icon && <div className={styles.cardIcon}>{icon}</div>}
+        <h3 className={styles.cardTitle}>{title}</h3>
+        <p className={styles.cardDescription}>{description}</p>
+      </div>
+    </Link>
   );
 }
 
