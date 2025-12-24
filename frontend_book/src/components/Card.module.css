@@ -10,6 +10,11 @@
   text-decoration: none;
   color: inherit;
   display: block;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px; /* Fixed minimum height */
+  height: 100%;
 }
 
 .card:hover {
@@ -19,17 +24,47 @@
   color: inherit;
 }
 
+.card:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
 .cardContent {
   padding: 1.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-height: 0; /* Allows flex items to shrink below content height */
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  min-height: 60px;
 }
 
 .cardIcon {
-  margin-bottom: 1rem;
   font-size: 2rem;
   color: var(--ifm-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardImage {
+  max-width: 100%;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+.cardBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allows flex items to shrink below content height */
+  overflow: hidden; /* Prevents content from overflowing */
 }
 
 .cardTitle {
@@ -37,6 +72,10 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--ifm-heading-color, var(--ifm-color-emphasis-900));
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cardDescription {
@@ -44,6 +83,70 @@
   color: var(--ifm-color-emphasis-700);
   line-height: 1.6;
   flex-grow: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show at most 3 lines */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.progressSection {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progressBarContainer {
+  flex: 1;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(to right, #00bfff, #00ffff);
+  border-radius: 4px;
+  min-width: 0;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  min-width: 40px;
+  text-align: right;
+}
+
+.statusBadge {
+  margin-top: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  align-self: flex-start;
+}
+
+.status-completed .statusBadge {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  border: 1px solid #4caf50;
+}
+
+.status-in-progress .statusBadge {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+  border: 1px solid #ffc107;
+}
+
+.status-locked .statusBadge {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  border: 1px solid #f44336;
 }
 
 /* Dark theme adjustments */
@@ -60,12 +163,41 @@ html[data-theme='dark'] .cardDescription {
   color: var(--ifm-color-emphasis-600);
 }
 
+html[data-theme='dark'] .progressBarContainer {
+  background-color: #444;
+}
+
+html[data-theme='dark'] .progressText {
+  color: var(--ifm-color-emphasis-400);
+}
+
+/* Ensure sufficient contrast for accessibility */
+html[data-theme='light'] .cardTitle {
+  color: #1a1a1a;
+}
+
+html[data-theme='light'] .cardDescription {
+  color: #4d4d4d;
+}
+
+html[data-theme='dark'] .cardTitle {
+  color: #f0f0f0;
+}
+
+html[data-theme='dark'] .cardDescription {
+  color: #cccccc;
+}
+
 /* Responsive adjustments */
 @media (max-width: 996px) {
+  .card {
+    min-height: 300px; /* Adjusted height for medium screens */
+  }
+
   .cardContent {
     padding: 1.25rem;
   }
-  
+
   .cardTitle {
     font-size: 1.125rem;
   }
@@ -73,15 +205,39 @@ html[data-theme='dark'] .cardDescription {
 
 @media (max-width: 768px) {
   .card {
-    margin-bottom: 1.5rem;
+    min-height: 280px; /* Adjusted height for small screens */
   }
-  
+
   .cardContent {
     padding: 1rem;
   }
-  
+
   .cardIcon {
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    min-height: 260px; /* Adjusted height for extra small screens */
+  }
+
+  .cardContent {
+    padding: 0.875rem;
+  }
+
+  .cardTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .cardDescription {
+    font-size: 0.9rem;
+  }
+
+  .cardIcon {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
   }
 }
