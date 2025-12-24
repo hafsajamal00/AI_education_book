@@ -1,0 +1,196 @@
+# API Contract: Vision-Language-Action (VLA) Interface
+
+## Overview
+This document defines the API contracts for the Vision-Language-Action system that enables students to interact with humanoid robots using voice commands and natural language instructions.
+
+## Base URL
+```
+https://vla-education-api.example.com/api/v1
+```
+
+## Authentication
+All endpoints require authentication using a Bearer token in the Authorization header:
+```
+Authorization: Bearer {access_token}
+```
+
+## Endpoints
+
+### 1. Process Voice Command
+**POST** `/voice-commands/process`
+
+**Description**: Submit a voice command for processing and robot execution
+
+**Request**:
+```json
+{
+  "audio_data": "base64_encoded_audio",
+  "student_id": "string",
+  "simulation_environment_id": "string"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "command_id": "string",
+  "recognized_text": "string",
+  "confidence_score": "number",
+  "action_sequence": {
+    "id": "string",
+    "sequence": [
+      {
+        "id": "string",
+        "type": "string",
+        "parameters": {}
+      }
+    ],
+    "status": "pending|executing|completed|failed"
+  },
+  "safety_constraints_applied": [
+    {
+      "id": "string",
+      "constraint_type": "string",
+      "condition": "string",
+      "severity": "warning|error"
+    }
+  ]
+}
+```
+
+**Errors**:
+- 400: Invalid audio data or missing required fields
+- 401: Unauthorized access
+- 422: Unprocessable command (e.g., unsafe action detected)
+- 500: Internal server error
+
+### 2. Submit Natural Language Instruction
+**POST** `/instructions/process`
+
+**Description**: Submit a complex natural language instruction for cognitive planning and execution
+
+**Request**:
+```json
+{
+  "instruction": "string",
+  "student_id": "string",
+  "simulation_environment_id": "string"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "instruction_id": "string",
+  "decomposed_actions": [
+    {
+      "id": "string",
+      "type": "string",
+      "parameters": {},
+      "order": "number"
+    }
+  ],
+  "action_sequence": {
+    "id": "string",
+    "status": "pending|executing|completed|failed"
+  },
+  "safety_constraints_applied": [
+    {
+      "id": "string",
+      "constraint_type": "string",
+      "condition": "string",
+      "severity": "warning|error"
+    }
+  ]
+}
+```
+
+**Errors**:
+- 400: Invalid instruction or missing required fields
+- 401: Unauthorized access
+- 422: Unprocessable instruction (e.g., unsafe actions detected)
+- 500: Internal server error
+
+### 3. Get Action Sequence Status
+**GET** `/action-sequences/{sequence_id}`
+
+**Description**: Get the current status of an action sequence
+
+**Path Parameters**:
+- `sequence_id`: ID of the action sequence
+
+**Response (200 OK)**:
+```json
+{
+  "id": "string",
+  "status": "pending|executing|completed|failed",
+  "current_action_index": "number",
+  "completed_actions": ["string"],
+  "execution_log": [
+    {
+      "timestamp": "datetime",
+      "action_id": "string",
+      "result": "success|failure",
+      "message": "string"
+    }
+  ]
+}
+```
+
+**Errors**:
+- 401: Unauthorized access
+- 404: Action sequence not found
+- 500: Internal server error
+
+### 4. Submit Assessment
+**POST** `/assessments/submit`
+
+**Description**: Submit assessment data for a student's interaction with the VLA system
+
+**Request**:
+```json
+{
+  "student_id": "string",
+  "module_id": "string",
+  "task_completed": "boolean",
+  "execution_time": "number",
+  "accuracy_rate": "number",
+  "feedback": "string"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "assessment_id": "string",
+  "submitted_at": "datetime"
+}
+```
+
+**Errors**:
+- 400: Invalid assessment data or missing required fields
+- 401: Unauthorized access
+- 500: Internal server error
+
+### 5. Get Simulation Environments
+**GET** `/simulation-environments`
+
+**Description**: Get a list of available simulation environments
+
+**Response (200 OK)**:
+```json
+[
+  {
+    "id": "string",
+    "name": "string",
+    "type": "gazebo|unity|nvidia-isaac|custom",
+    "description": "string",
+    "objects": ["string"],
+    "robot_configurations": ["string"]
+  }
+]
+```
+
+**Errors**:
+- 401: Unauthorized access
+- 500: Internal server error

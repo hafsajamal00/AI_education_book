@@ -69,14 +69,9 @@ const config = {
           alt: 'ROS 2 Logo',
           src: 'img/logo.svg',
         },
-        hideOnScroll: true,
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
+          {to: '/', label: 'Home', position: 'left'},
+          {to: '/docs/category/modules', label: 'Modules', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
@@ -116,6 +111,10 @@ const config = {
           {
             title: 'More',
             items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
               {
                 label: 'GitHub',
                 href: 'https://github.com/facebook/docusaurus',
