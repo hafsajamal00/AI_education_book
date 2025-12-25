@@ -1,0 +1,36 @@
+/* Custom CSS for Docusaurus docs headings */
+
+/* Main chapter headings (h1) - Bright, contrasting color */
+article h1 {
+  color: #1E90FF; /* Dodger Blue */
+}
+
+/* Subheadings (h2) - Complementary color */
+article h2 {
+  color: #32CD32; /* Lime Green */
+}
+
+/* Sub-subheadings (h3) - Complementary color */
+article h3 {
+  color: #FF4500; /* Orange Red */
+}
+
+/* Dark mode support - ensure visibility on dark backgrounds */
+html[data-theme='dark'] article h1 {
+  color: #4682B4; /* Steel Blue - lighter for dark mode */
+}
+
+html[data-theme='dark'] article h2 {
+  color: #66FF66; /* Lighter green for dark mode */
+}
+
+html[data-theme='dark'] article h3 {
+  color: #FF7733; /* Lighter orange-red for dark mode */
+}
+
+/* Additional specificity to ensure these styles override defaults */
+main article h1,
+main article h2,
+main article h3 {
+  color: inherit; /* This ensures the above colors are applied properly */
+}
