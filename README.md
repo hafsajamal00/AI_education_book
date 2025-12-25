@@ -76,4 +76,4 @@ We welcome contributions to this educational resource. Please follow these steps
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Last updated: December 25, 2025
+Last updated: December 25, 2025# AI_education_book
